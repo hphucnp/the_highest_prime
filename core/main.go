@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"math"
 	"strconv"
-
+	"encoding/json"
 )
 
-// func homePage(w http.ResponseWriter, r *http.Request){
-//     fmt.Fprintf(w, "Welcome to the HomePage!")
-//     fmt.Println("Endpoint Hit: homePage")
-// }
+type ResponseBody struct {
+	Message  string
+	Data   int
+}
 
 func isPrime(i int) bool{
 	sqn := math.Sqrt(float64(i))
@@ -45,7 +45,24 @@ func getTheBiggestPrime(w http.ResponseWriter, r *http.Request) {
 				 break
 			}	
 		}
-		fmt.Fprintf(w, strconv.Itoa(res));
+		// fmt.Fprintf(w, strconv.Itoa(res));
+		// w.Header().Set("Server", "A Go Web Server")
+		if res == 0 {
+		  w.WriteHeader(204)
+		} else {
+			w.WriteHeader(200);
+			b := ResponseBody{"The biggest prime", res}
+			body, err := json.Marshal(b)
+			fmt.Println(strconv.Itoa(res))
+			fmt.Println(string(body))
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			  }
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(body)
+			// w.Write([]byte("OK"))
+		}
 	}
     
 }
