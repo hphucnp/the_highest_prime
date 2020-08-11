@@ -7,6 +7,7 @@ import (
 	"math"
 	"strconv"
 	"encoding/json"
+	"github.com/rs/cors"
 )
 
 type ResponseBody struct {
@@ -26,7 +27,12 @@ func isPrime(i int) bool{
 	return isPrime
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func getTheBiggestPrime(w http.ResponseWriter, r *http.Request) {
+
 	keys, ok := r.URL.Query()["number"]
     
     if !ok || len(keys[0]) < 1 {
@@ -61,15 +67,16 @@ func getTheBiggestPrime(w http.ResponseWriter, r *http.Request) {
 			  }
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(body)
-			// w.Write([]byte("OK"))
 		}
 	}
     
 }
 
 func handleRequests() {
-    http.HandleFunc("/", getTheBiggestPrime)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", getTheBiggestPrime)
+	handler := cors.Default().Handler(mux)
+    log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
 func main() {
