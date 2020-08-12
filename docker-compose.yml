@@ -1,0 +1,18 @@
+version: '2.0'
+services:
+  prime:
+    build: 
+      context: ./core
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    image: phucnguyendekttek/prime:2.0.0
+    container_name: prime
+  prime-front:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    image: phucnguyendekttek/prime-front:2.0.0
+    container_name: prime-pront
