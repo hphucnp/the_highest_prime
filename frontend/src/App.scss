@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -35,6 +36,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app {
+  background-image: url("./bg3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .center {

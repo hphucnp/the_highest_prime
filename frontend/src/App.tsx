@@ -1,31 +1,29 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
 function App() {
   const [inputNumber, setInputNumber] = useState("2");
-  const [thePrime, setThePrime] = useState("2");
+  const [thePrime, setThePrime] = useState("1");
   const handleChange = (e : React.ChangeEvent<HTMLTextAreaElement|HTMLInputElement>) => {
                 setThePrime(" waiting, please click Find");
                 setInputNumber(e.target.value)};
-  const handleClick = () => fetch('http://localhost:8080?number=' + inputNumber)
+  // Todo: Put backend url into env vars
+  const handleClick = () => {
+    if(parseInt(inputNumber) <= 1){
+      alert("Only number which is greater than 1 is accepted")
+      return
+    }
+    fetch('http://104.197.12.181:8080?number=' + inputNumber)
                                   .then(response => response.json())
-                                  .then(data => setThePrime(data.Data));
+                                  .then(data => setThePrime(data.Data))
+                                };
   return (
     <div className="App">
-      <div className="center fullwindow">
+      <div className="app center fullwindow">
         <div className="pr-3">
           <Card
             bg={"light"}
@@ -50,6 +48,7 @@ function App() {
               id="standard-basic"
               label="Enter a number"
               variant="outlined"
+              type="number"
               onChange={(e) => handleChange(e)}
             />
             <Button variant="contained" onClick={()=> handleClick()}>Find</Button>
@@ -61,7 +60,12 @@ function App() {
           </div>
           <div>
             <h6 style={{ textAlign: "center" }}>
-              for {inputNumber} is <span style={{color: "blue"}}>{thePrime}</span>
+              for {inputNumber}
+            </h6>
+          </div>
+          <div>
+            <h6 style={{ textAlign: "center" }}>
+              is <span style={{color: "blue"}}>{thePrime}</span>
             </h6>
           </div>
         </div>
