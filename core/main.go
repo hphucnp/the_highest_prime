@@ -45,10 +45,6 @@ func theBiggerPrime(n float64) int {
 	return res
 }
 
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-}
-
 func getTheBiggestPrime(w http.ResponseWriter, r *http.Request) {
 
 	keys, ok := r.URL.Query()["number"]
