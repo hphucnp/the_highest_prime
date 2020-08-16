@@ -1,53 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Anton:400");
+
+$font-primary: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif;
+
+h1 {
+  font-family: $font-primary;
+}
+
 .App {
   text-align: center;
-  
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #f5e392;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.app {
   background-image: url("./bg3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.form {
+  padding-top: 0;
+  padding-left: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .center {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .card {
+    padding-right: 0;
+  }
+  .form {
+    padding-top: 10px;
+    padding-left: 0;
+  }
 }
 
 .center {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  top: 30%;
+  width: 100%;
+  height: 70%;
+  background: none;
 }
 
 .fullwindow {
