@@ -1,4 +1,4 @@
-version: '2.0'
+version: '3.5'
 services:
   prime:
     build: 
@@ -6,13 +6,15 @@ services:
       dockerfile: Dockerfile
     ports:
     - "8080:8080"
-    image: phucnguyendekttek/prime:2.0.0
+    image: phucnguyendekttek/prime:${PRIME_TAG:-2.0.0}
     container_name: prime
   prime-front:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        REACT_APP_API: ${REACT_APP_API:-http://localhost:8080}
     ports:
     - "80:80"
-    image: phucnguyendekttek/prime-front:2.0.0
-    container_name: prime-pront
+    image: phucnguyendekttek/prime-front:${PRIME_FRONT_TAG:-2.0.0}
+    container_name: prime-front
