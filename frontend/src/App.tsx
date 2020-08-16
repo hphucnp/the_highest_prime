@@ -20,7 +20,7 @@ function App() {
       alert("Only number which is greater than 1 is accepted");
       return;
     }
-    fetch("http://104.197.12.181:8080?number=" + inputNumber)
+    fetch(process.env.REACT_APP_API + "?number=" + inputNumber)
       .then((response) => response.json())
       .then((data) => setThePrime(data.Data));
   };
